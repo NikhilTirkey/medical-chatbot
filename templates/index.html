@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Medical Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chat-container {
+            width: 60%;
+            margin: 40px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .chat-box {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .user-message {
+            background-color: #dff9fb;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .bot-message {
+            background-color: #f1f2f6;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        strong {
+            color: #2f3640;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <h1>Medical Chatbot</h1>
+
+    <form method="POST" action="/ask">
+        <input type="text" name="message" placeholder="Ask a medical question" required>
+        <button type="submit">Send</button>
+    </form>
+
+    <div class="chat-box">
+        {% if chat_history %}
+            {% for sender, message in chat_history %}
+                {% if sender == "You" %}
+                    <div class="user-message">
+                        <strong>{{ sender }}:</strong> {{ message }}
+                    </div>
+                {% else %}
+                    <div class="bot-message">
+                        <strong>{{ sender }}:</strong> {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
